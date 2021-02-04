@@ -8,7 +8,7 @@ const routes = {
 const divs = {
   '/': document.getElementById('root'),
   '/angular': document.getElementById('ang'),
-  '/vue': document.getElementById('vue'),
+  '/vue': document.getElementById('root'),
   '/react': document.getElementById('react')
 };
 
@@ -23,10 +23,19 @@ const onNavigate = (pathname) => {
   )
   divs[pathname].innerHTML = routes[pathname]
   //rootDiv.innerHTML = pathname
-  const userProfile = document.getElementById('user-profile');
-  userProfile.addEventListener('myEvent', () => {
-    $('a[href="#portfolio"]').click();
-  });
+  if(document.querySelector('v-card')) {
+    const user = document.querySelector('v-card');
+    user.addEventListener('submit', () => {
+      $('a[href="#angular"]').click();
+      divs['/'].innerHTML = `<v-card title="Vue JS web component"></v-card>`;
+    });
+  }
+  if(document.getElementById('user-profile')) {
+	const userProfile = document.getElementById('user-profile');
+	userProfile.addEventListener('myEvent', () => {
+	  $('a[href="#vue"]').click();
+	});
+  }
 }
 
 window.onpopstate = () => {

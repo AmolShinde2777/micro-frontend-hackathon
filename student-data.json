@@ -1,0 +1,28 @@
+{
+  "studentData": [
+    {
+      "id": 1,
+      "firstname": "Amol",
+      "lastname": "Shinde",
+      "dob": "27-09-1991",
+	  "gender": "Male",
+	  "address": "Pune"
+    },
+    {
+      "id": 2,
+      "firstname": "Majahar",
+      "lastname": "Shaikh",
+      "dob": "03-02-1990",
+	  "gender": "Male",
+	  "address": "Satara"
+    },
+    {
+      "id": 3,
+      "firstname": "Ankush",
+      "lastname": "Changole",
+      "dob": "25-05-1992",
+	  "gender": "Male",
+	  "address": "Amaravati"
+    }
+  ]
+}
