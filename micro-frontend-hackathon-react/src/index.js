@@ -8,6 +8,29 @@ class MyElement extends HTMLElement {
     super();
     this._data = [];
     this._reference = null;
+    this.id = 1;
+  }
+
+  get id() {
+    return this.id;
+  }
+
+  set id(value) {
+    fetch("http://localhost:3000/studentData/" + value)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this._data = [];
+          this._data.push(result);
+          this.render();
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
   }
 
   get data() {
@@ -15,8 +38,6 @@ class MyElement extends HTMLElement {
   }
 
   set data(value) {
-    this._data = value;
-    this.render();
   }
 
   get reference() {

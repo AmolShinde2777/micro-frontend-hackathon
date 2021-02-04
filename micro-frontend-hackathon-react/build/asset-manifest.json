@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/static/css/main.afd7172b.css",
+    "main.js": "/../../micro-frontend-hackathon-root/scripts/bundle.js",
+    "main.css.map": "/static/css/main.afd7172b.css.map",
+    "main.js.map": "/../../micro-frontend-hackathon-root/scripts/bundle.js.map",
+    "index.html": "/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.afd7172b.css",
+    "../../micro-frontend-hackathon-root/scripts/bundle.js"
+  ]
+}
