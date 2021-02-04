@@ -1,0 +1,54 @@
+<section>
+  <!--for demo wrap-->
+  <h1>Student Details</h1>
+  <!-- <div>
+    <h3>Student Details</h3>
+  </div> -->
+
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>DOB</th>
+          <th>Gender</th>
+          <th>Address</th>
+          <th>Edit</th>
+          <th>View</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+        <tr *ngFor="let student of studentData; let indx = index">
+          <td>{{student.id}}</td>
+          <td>{{student.firstname}}</td>
+          <td>{{student.lastname}}</td>
+          <td>{{student.dob}}</td>
+          <td>{{student.gender}}</td>
+          <td>{{student.address}}</td>
+          <td id={{student.id}}>
+            <button type="button" (click)="editRecord($event, indx)" class="button2" style="margin-right: 20px;">EDIT</button>
+            <!-- <button type="button" (click)="viewRecord($event, indx)" class="button2" style="margin-right: 20px;">View</button> -->
+            <!-- <button type="button" (click)="deleteRecord($event, indx)">DELETE</button> -->
+          </td>
+          <td id={{student.id}}>
+            <button type="button" (click)="viewRecord($event, indx)" class="button2" style="margin-right: 20px;">View</button>       
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div *ngIf="studentData && studentData.length === 0" style="margin-top: 50px;">
+    No record found.
+  </div>
+
+
+
+</section>
