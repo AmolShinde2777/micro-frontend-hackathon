@@ -16,7 +16,8 @@ function App({ title, data = [] }) {
     paddingTop: "2em",
     backgroundColor: "#eee",
     border: "1px solid #000",
-    borderRadius: "5px"
+    borderRadius: "5px",
+    boxShadow: "5px 10px 8px #888888"
   };
   const userImageCont = {
     width: "16%",
