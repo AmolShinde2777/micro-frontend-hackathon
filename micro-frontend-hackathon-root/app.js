@@ -35,7 +35,7 @@ const onNavigate = (pathname) => {
   if (document.getElementById('user-profile')) {
     const userProfile = document.getElementById('user-profile');
     userProfile.addEventListener('myEvent', () => {
-      $('a[href="#vue"]').click();
+      $('a[href="#angular"]').click();
     });
   }
 
@@ -52,13 +52,20 @@ const onNavigate = (pathname) => {
 
   if (document.querySelector('header-app') !== null) {
     document.querySelector('header-app').addEventListener('selectedStudent', (data) => {
+
+      var obj = JSON.parse('{ "name":"John", "age":30, "city":"New York"}');
+
+      console.log(obj.name)
+      var jsonData=data.detail
       console.log(data.detail);
-      if (data.detail == true)
-        document.getElementById('react') = '<user-profile></user-profile>';
+      var id=JSON.parse(jsonData);
+      
+      // if (data.detail == true)
+    //  document.getElementById('react') = '<user-profile></user-profile>';
       $('a[href="#react"]').click();
       const userProfile = document.getElementById('user-profile');
       console.log(data.detail.id);
-      userProfile.id = data.detail.id;
+      userProfile.id = id.id;
     });
   }
 
