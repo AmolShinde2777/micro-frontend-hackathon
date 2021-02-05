@@ -11,7 +11,7 @@
     "postinstall:bak": "ngcc",
     "postinstall": "ngcc",
     "build:footerApp:externals": "ng build --extra-webpack-config projects/footerApp/webpack.externals.js --prod --project footerApp --single-bundle --output-hashing none && node build-elements.js footerApp",
-    "build:headerApp:externals": "ng build --extra-webpack-config projects/headerApp/webpack.externals.js --prod --project headerApp --single-bundle --output-hashing none && node build-elements.js headerApp"
+    "build:headerApp:externals": "ng build --extra-webpack-config projects/headerApp/webpack.externals.js --prod  --project headerApp --single-bundle --output-hashing none && node build-elements.js headerApp"
   },
   "private": true,
   "dependencies": {
