@@ -25,10 +25,7 @@ class MyElement extends HTMLElement {
           this.render();
         },
         (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
+          console.log(error);
         }
       )
   }

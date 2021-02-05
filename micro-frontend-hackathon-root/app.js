@@ -53,8 +53,12 @@ const onNavigate = (pathname) => {
   if (document.querySelector('header-app') !== null) {
     document.querySelector('header-app').addEventListener('selectedStudent', (data) => {
       console.log(data.detail);
-      userProfile.id = data.detail.id;
+      if (data.detail == true)
+        document.getElementById('react') = '<user-profile></user-profile>';
       $('a[href="#react"]').click();
+      const userProfile = document.getElementById('user-profile');
+      console.log(data.detail.id);
+      userProfile.id = data.detail.id;
     });
   }
 
