@@ -33,6 +33,16 @@
 
 <script>
 export default {
+  props: {
+    id: {
+      type: String,
+      default: "",
+    },
+    editFlag: {
+      type: String,
+      default: "",
+    },
+  },
   data: function () {
     return {
       firstname: "",
@@ -42,76 +52,80 @@ export default {
       address: "",
       valid: false,
       submitted: false,
+      idProp: "",
+      editFlagProp: "",
     };
+  },
+  watch: {
+    id: function (newVal) {
+      this.idProp = newVal;
+    },
+    editFlag: function (newVal) {
+      this.editFlagProp = newVal;
+      this.editFlagProp ? this.fetchData(this.idProp) : "";
+    },
   },
   methods: {
     submit: function () {
       this.valid = true;
-      if (this.valid) {
-        //THIS IS WHERE YOU SUBMIT DATA TO SERVER
-        var dataArray = [];
-        var data;
-        if (typeof localStorage !== "undefined") {
-          if (localStorage.getItem("editRecord") !== "undefined") {
-            var editRecord = JSON.parse(localStorage.getItem("editRecord")),
-              studentdata = JSON.parse(localStorage.getItem("studentData")),
-              updateRecord = studentdata.find((item) => item.id === editRecord.id);
-            updateRecord.firstname = this.firstname;
-            updateRecord.lastname = this.lastname;
-            updateRecord.dob = this.dob;
-            updateRecord.gender = this.gender;
-            updateRecord.address = this.address;
-            localStorage.setItem("studentData", JSON.stringify(studentdata));
-            localStorage.setItem("editRecord", undefined);
-          } else {
-            data = JSON.parse(localStorage.getItem("studentData"));
-            if (data) {
-              dataArray = data;
-            } else {
-              dataArray = [];
-            }
-            var nextID = dataArray.length + 1;
-            dataArray.push({
-              id: nextID,
+      if (this.editFlagProp) {
+        const requestOptions = {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstname: this.firstname,
+            lastname: this.lastname,
+            dob: this.dob,
+            gender: this.gender,
+            address: this.address,
+          }),
+        };
+        fetch(
+          "http://localhost:3000/studentData/" + this.idProp,
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((data) => (this.idProp = data.id));
+        this.$emit("submit", "fromvueapp");
+      } else {
+        if (this.valid) {
+          const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
               firstname: this.firstname,
               lastname: this.lastname,
               dob: this.dob,
               gender: this.gender,
               address: this.address,
-            });
-            localStorage.setItem("studentData", JSON.stringify(dataArray));
-          }
-           this.submitted = true;
-        } else {
-          alert('Error: Localstorage not available');
+            }),
+          };
+          fetch("http://localhost:3000/studentData", requestOptions)
+            .then((response) => response.json())
+            .then((data) => (this.id = data.id));
+          this.$emit("submit", "fromvueapp");
         }
-        
-        this.$emit('submit','fromvueapp');
-
       }
+      this.editFlagProp = false;
+      this.submitted = true;
     }, //end submit
-    loadData: function () {
-      if (typeof localStorage !== "undefined" && localStorage.getItem("editRecord") != "undefined") {
-        var data = JSON.parse(localStorage.getItem("editRecord"));
-        this.firstname = data.firstname;
-        this.lastname = data.lastname;
-        this.dob = data.dob;
-        this.gender = data.gender;
-        this.address = data.address;
-        //localStorage.setItem("editRecord", undefined);
-      } else {
-        this.firstname = "";
-        this.lastname = "";
-        this.dob = "";
-        this.gender = "";
-        this.address = "";
-      }
+
+    setData: function (data) {
+      this.firstname = data.firstname;
+      this.lastname = data.lastname;
+      this.dob = data.dob;
+      this.gender = data.gender;
+      this.address = data.address;
+      console.log(data);
+    },
+
+    fetchData: function (value) {
+      fetch("http://localhost:3000/studentData/" + value)
+        .then((response) => response.json())
+        .then((data) => this.setData(data));
+      this.editFlagProp = true;
     },
   },
-  beforeMount() {
-    var me = this;
-    me.loadData();
-  }
 };
 </script>
 <style>

@@ -24,7 +24,7 @@ const onNavigate = (pathname) => {
   divs[pathname].innerHTML = routes[pathname]
   //rootDiv.innerHTML = pathname
 
-  if(document.querySelector('v-card')) {
+  if (document.querySelector('v-card')) {
     const user = document.querySelector('v-card');
     user.addEventListener('submit', () => {
       $('a[href="#angular"]').click();
@@ -32,30 +32,32 @@ const onNavigate = (pathname) => {
     });
   }
 
-  if(document.getElementById('user-profile')) {
-	const userProfile = document.getElementById('user-profile');
-	userProfile.addEventListener('myEvent', () => {
-	  $('a[href="#vue"]').click();
-	});
-}
+  if (document.getElementById('user-profile')) {
+    const userProfile = document.getElementById('user-profile');
+    userProfile.addEventListener('myEvent', () => {
+      $('a[href="#vue"]').click();
+    });
+  }
 
   if (document.querySelector('header-app') !== null) {
     document.querySelector('header-app').addEventListener('editStudentRecord', (data) => {
       console.log(data.detail);
-      // onNavigate('/react');
-      if (data.detail == true)
-        $('a[href="#vue"]').click();
+      const user = document.querySelector('v-card');
+      user.id = 2;
+      user.editFlag = "true";
+      //$('a[href="#vue"]').click();
       // document.getElementById('react').click();
-
     });
   }
 
   if (document.querySelector('header-app') !== null) {
     document.querySelector('header-app').addEventListener('selectedStudent', (data) => {
       console.log(data.detail);
+      userProfile.id = data.detail.id;
       $('a[href="#react"]').click();
     });
   }
+
 }
 
 window.onpopstate = () => {
