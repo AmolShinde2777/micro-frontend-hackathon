@@ -24,7 +24,7 @@
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
-        <tr *ngFor="let student of studentData; let indx = index">
+        <tr *ngFor="let student of studentDetails; let indx = index">
           <td>{{student.id}}</td>
           <td>{{student.firstname}}</td>
           <td>{{student.lastname}}</td>
@@ -45,7 +45,7 @@
   </div>
 
 
-  <div *ngIf="studentData && studentData.length === 0" style="margin-top: 50px;">
+  <div *ngIf="studentDetails && studentDetails.length === 0" style="margin-top: 50px;">
     No record found.
   </div>
 

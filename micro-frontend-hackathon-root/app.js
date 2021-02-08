@@ -1,6 +1,6 @@
 const routes = {
   '/': `<v-card title="Vue JS web component"></v-card>`,
-  '/angular': `<header-app></header-app>`,
+  '/angular': `<header-app [studentDetails]="studentDetails"></header-app>`,
   '/vue': `<v-card title="Vue JS web component"></v-card>`,
   '/react': '<user-profile id="user-profile"></user-profile>'
 };
@@ -15,6 +15,22 @@ const divs = {
 const rootDiv = document.getElementById('root');
 rootDiv.innerHTML = routes[window.location.pathname];
 
+//Fetch Student Data from Json Server API
+const getStudent = () => {
+  fetch("http://localhost:3000/studentData/")
+    .then(res => res.json())
+    .then(
+      (result) => {
+        studentDetails = result;
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+};
+
+getStudent();
+
 const onNavigate = (pathname) => {
   window.history.pushState(
     {},
@@ -22,7 +38,12 @@ const onNavigate = (pathname) => {
     window.location.origin + pathname
   )
   divs[pathname].innerHTML = routes[pathname]
-  //rootDiv.innerHTML = pathname
+ 
+  getStudent();
+  if (pathname == '/angular') {
+    const header = document.querySelector('header-app');
+    header.studentDetails = studentDetails;
+  }
 
   if (document.querySelector('v-card')) {
     const user = document.querySelector('v-card');
@@ -42,26 +63,19 @@ const onNavigate = (pathname) => {
   if (document.querySelector('header-app') !== null) {
     document.querySelector('header-app').addEventListener('editStudentRecord', (data) => {
       console.log(data.detail);
+      var record = JSON.parse(data.detail);
       const user = document.querySelector('v-card');
-      user.id = 2;
+      user.id = record.id;
       user.editFlag = "true";
-      //$('a[href="#vue"]').click();
-      // document.getElementById('react').click();
+      $('a[href="#vue"]').click();
     });
   }
 
   if (document.querySelector('header-app') !== null) {
     document.querySelector('header-app').addEventListener('selectedStudent', (data) => {
-
-      var obj = JSON.parse('{ "name":"John", "age":30, "city":"New York"}');
-
-      console.log(obj.name)
-      var jsonData=data.detail
+      var jsonData = data.detail
       console.log(data.detail);
-      var id=JSON.parse(jsonData);
-      
-      // if (data.detail == true)
-    //  document.getElementById('react') = '<user-profile></user-profile>';
+      var id = JSON.parse(jsonData);
       $('a[href="#react"]').click();
       const userProfile = document.getElementById('user-profile');
       console.log(data.detail.id);
