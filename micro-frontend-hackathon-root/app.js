@@ -44,7 +44,7 @@ const onNavigate = (pathname) => {
     setTimeout(function () {  
     const header = document.querySelector('header-app');
     header.studentDetails = studentDetails;
-    },200);
+    },500);
   }
 
   if (document.querySelector('v-card')) {
