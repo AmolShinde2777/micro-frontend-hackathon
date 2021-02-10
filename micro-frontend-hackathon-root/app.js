@@ -21,7 +21,7 @@ const getStudent = () => {
     .then(res => res.json())
     .then(
       (result) => {
-        studentDetails = result;
+        return studentDetails = result;
       },
       (error) => {
         console.log(error);
@@ -41,15 +41,17 @@ const onNavigate = (pathname) => {
  
   getStudent();
   if (pathname == '/angular') {
+    setTimeout(function () {  
     const header = document.querySelector('header-app');
     header.studentDetails = studentDetails;
+    },200);
   }
 
   if (document.querySelector('v-card')) {
     const user = document.querySelector('v-card');
     user.addEventListener('submit', () => {
-      $('a[href="#angular"]').click();
       divs['/'].innerHTML = `<v-card title="Vue JS web component"></v-card>`;
+      $('a[href="#angular"]').click(); 
     });
   }
 
@@ -64,10 +66,10 @@ const onNavigate = (pathname) => {
     document.querySelector('header-app').addEventListener('editStudentRecord', (data) => {
       console.log(data.detail);
       var record = JSON.parse(data.detail);
+      $('a[href="#vue"]').click();
       const user = document.querySelector('v-card');
       user.id = record.id;
       user.editFlag = "true";
-      $('a[href="#vue"]').click();
     });
   }
 
