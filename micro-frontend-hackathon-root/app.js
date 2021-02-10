@@ -77,11 +77,14 @@ const onNavigate = (pathname) => {
     document.querySelector('header-app').addEventListener('selectedStudent', (data) => {
       var jsonData = data.detail
       console.log(data.detail);
-      var id = JSON.parse(jsonData);
-      $('a[href="#react"]').click();
+      var id = JSON.parse(jsonData);    
+      divs['/react'].innerHTML = routes['/react']
       const userProfile = document.getElementById('user-profile');
-      console.log(data.detail.id);
       userProfile.id = id.id;
+      $('html, body').animate({
+        scrollTop: $("#react").offset().top
+    }, 800);
+      //$('a[href="#react"]').click();
     });
   }
 
